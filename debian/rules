@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export DH_VIRTUALENV_INSTALL_ROOT=/usr/share
+export PYBUILD_NAME=rnrhelper
+
+SNAKE=/usr/bin/python3
+PACKAGE=$(shell dh_listpackages)
+VERSION=$(shell parsechangelog | grep ^Version: | sed -re 's/[^0-9]+([^-]+).*/\1/')
+SDIST_DIR=debian/$(PACKAGE)-$(VERSION)
+
+%:
+	dh $@ --with python-virtualenv --buildsystem=pybuild
+
+# we don't really want dwz to do anything to our files.
+override_dh_dwz:
+	# Do nothing
+
+# we don't really want to strip the symbols from our object files.
+override_dh_strip:
+	# Do nothing
+
+override_dh_installexamples:
+	dh_installexamples -A -X__pycache__
+
+override_dh_virtualenv:
+	dh_virtualenv \
+		--install-suffix "rnrhelper" \
+		--builtin-venv \
+		--python ${SNAKE} \
+		--upgrade-pip-to=22.3 \
+		--preinstall="setuptools==65.5.0" \
+		--preinstall="wheel==0.37.1"
+		--preinstall="mock" \
+		--extra-pip-arg="--compile" \
+		--extras="all,systemd,test"
