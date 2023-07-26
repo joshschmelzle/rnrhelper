@@ -109,7 +109,7 @@ class _Utils:
         _rnr_channel = int(rnr_channel).to_bytes(1, "big")
         logger.debug(f"rnr channel: {_rnr_channel} len({len(_rnr_channel)})")
 
-        _rnr_tbtt_1_offset = int(100).to_bytes(1, "big")
+        _rnr_tbtt_1_offset = int(255).to_bytes(1, "big")
         logger.debug(
             f"rnr tbtt 1 offset: {_rnr_tbtt_1_offset} len({len(_rnr_tbtt_1_offset)})"
         )
