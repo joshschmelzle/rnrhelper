@@ -124,7 +124,7 @@ class _Utils:
             f"rnr tbtt 1 short ssid: {_rnr_tbtt_1_short_ssid} len({len(_rnr_tbtt_1_short_ssid)})"
         )
 
-        _rnr_tbtt_1_params = b"\x48"
+        _rnr_tbtt_1_params = b"\x08"
         logger.debug(
             f"rnr tbtt 1 params: {_rnr_tbtt_1_params} len({len(_rnr_tbtt_1_params)})"
         )
